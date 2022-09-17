@@ -1,10 +1,11 @@
-#include "dev_usart.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <time.h>
+
+#include "./driver/dev_usart.h"
 
 
 int32_t pc_fd;
@@ -115,6 +116,7 @@ void main(void)
 	while(1)
 	{
 
+		processRecvDataPc();
 		processRecvDataPc();
 
 		usleep(15000);
