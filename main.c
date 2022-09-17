@@ -6,7 +6,7 @@
 #include <time.h>
 
 #include "./driver/dev_usart.h"
-
+#include "./driver/log.h"
 
 int32_t pc_fd;
 static uint32_t read_buf_size;
@@ -68,7 +68,7 @@ static void processRecvDataPc(void)
 	read_again:
 	pc_read(PCRecvbuff + PCRecvLen, &read_len);
 	PCRecvLen += read_len;
-    printf("datalu len %d\n", read_len);
+    // printf("datalu len %d\n", read_len);
 
     if (read_len > 0) {
 	    if (PCRecvbuff[0] == 0x58) {
@@ -87,13 +87,13 @@ static void processRecvDataPc(void)
 
 	if (0 < PCRecvLen <= 1024)
 	{
-		printf("PCRecvLenlu : %d\n", PCRecvLen);
+		// printf("PCRecvLenlu : %d\n", PCRecvLen);
 		#if 1
-		for (i = 0; i < PCRecvLen; i++)
-		{
-			printf("%02x", PCRecvbuff[i]);
-		}
-		printf("\n");
+		// for (i = 0; i < PCRecvLen; i++)
+		// {
+		// 	printf("%02x", PCRecvbuff[i]);
+		// }
+		// printf("\n");
         #endif
 		
 		//PCRecvLen = 0;
@@ -116,10 +116,11 @@ void main(void)
 	while(1)
 	{
 
-		processRecvDataPc();
-		processRecvDataPc();
+		processRecvDataPc();//从串口读取数据
+		CopeSerial2Data(PCRecvbuff, PCRecvLen);
 
-		usleep(15000);
+		// processRecvDataPc();
+		usleep(150000);
 	}
 	printf("over\n");
 }
