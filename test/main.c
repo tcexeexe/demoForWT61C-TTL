@@ -5,8 +5,8 @@
 #include <unistd.h>
 #include <time.h>
 
-#include "./driver/dev_usart.h"
-#include "./driver/log.h"
+#include "dev_usart.h"// #include "./driver/dev_usart.h"
+#include "log.h"// #include "./driver/log.h"
 
 int32_t pc_fd;
 static uint32_t read_buf_size;

@@ -1,26 +1,29 @@
-#项目路径
-INC_DIR = ../inc
-LIB_DIR = ../lib
-TAR_DIR = ../tar/
-#目标
-TARGET = mytar
-#头文件
-INCLUDE = -I$(INC_DIR) -I./ -I$(LIB_DIR)
-#库 .a表示自己编译的库 -l后面的表示使用的其他库
-LDFLAGS = $(LIB_DIR)/xxx.a
-LIBS =-lm -lpthread
-#编译器及编译选项
-CC = gcc
-CSTRIP = strip
-CFLAGS = -O2 -Wall -g -fpic
-FILES = $(wildcard *.c)
-OBJS = $(patsubst %.c,%.o,$(FILES))
-RM = rm -f
-$(TAR_DIR)/$(TARGET):$(OBJS)
-$(CC) -o $@ $^ $(INCLUDE) $(CFLAGS) $(LDFLAGS) $(LIBS)
-$(OBJS):%.o:%.c
-$(CC) -c $(INCLUDE) $(LIBS) $(CFLAGS) $< -o $@
-strip:
--$(CSTRIP) $(CENTER_DIR)/$(TARGET)
+VERSION  =1.00
+CC   =gcc
+DEBUG   = -DUSE_DEBUG
+CFLAGS  = -Wall
+SOURCES   = $(wildcard ./driver/*.c)
+SOURCES   += $(wildcard ./test/*.c)
+INCLUDES   = -I ./driver
+# LIB_NAMES  =-lfun_a -lfun_so
+# LIB_PATH  =-L ./lib
+OBJ   =$(patsubst %.c, %.o, $(SOURCES))
+TARGET  =app
+
+#links
+$(TARGET):$(OBJ)
+	@mkdir -p output
+	$(CC) $(OBJ) $(LIB_PATH) $(LIB_NAMES) -o output/$(TARGET)$(VERSION)
+	@rm -rf $(OBJ)
+ 
+#compile
+%.o: %.c #模式匹配
+	$(CC) $(INCLUDES) $(DEBUG) -c $(CFLAGS) $< -o $@
+
+.PHONY:clean
 clean:
--$(RM) $(TARGET) $(OBJS)
+	@echo "Remove linked and compiled files......"
+	rm -rf $(OBJ) $(TARGET) output
+# -----------------------------------
+# 几个Makefile通用模板分享！
+# https://blog.51cto.com/u_15244533/5247086
