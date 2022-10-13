@@ -112,26 +112,11 @@ struct SDStatus
 	short sDStatus[4];
 };
 
-struct SPress
+struct Speed
 {
-	long lPressure;
-	long lAltitude;
+	float current_speed[3];
+	float last_speed[3];
 };
+//speed x y z
 
-struct SLonLat
-{
-	long lLon;
-	long lLat;
-};
-
-struct SGPSV
-{
-	short sGPSHeight;
-	short sGPSYaw;
-	long lGPSVelocity;
-};
-struct SQ
-{ short q[4];
-};
- 
 #endif
