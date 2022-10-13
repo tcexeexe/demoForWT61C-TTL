@@ -26,7 +26,6 @@ int32_t pc_open(const uint32_t read_buf)
 	    set_speed(pc_fd, 115200);
 	}
 	
-
 	set_Parity(pc_fd, 8, 1, 'N', 2 * 10);
 
 	read_buf_size = read_buf;
@@ -115,14 +114,11 @@ void main(void)
 
 	while(1)
 	{
-
 		processRecvDataPc();//从串口读取数据
 		CopeSerial2Data(PCRecvbuff, PCRecvLen);
-
+		acc2speed();
 		// processRecvDataPc();
-		usleep(150000);
+		usleep(10*1000);
 	}
 	printf("over\n");
 }
-
- 

@@ -5,5 +5,5 @@
 
 void CopeSerial2Data(uint8_t ucData[], uint8_t len);
 struct SAcc read_acc();
-
+void acc2speed(void);
 #endif
